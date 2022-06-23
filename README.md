@@ -51,7 +51,7 @@ vSphere DRS must be enabled in the Cluster where you want to deply NAPP even if 
 
 ## Setup NAPP vAPP in vCenter 
 
-Download vAPP OVA from [releases]([https://github.com/derstich/napp_vapp/releases/]) 
+Download vAPP OVA from [releases](https://github.com/derstich/napp_vapp/releases/) 
 
 ### Install vAPP 
 
