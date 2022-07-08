@@ -9,7 +9,7 @@ This release is for evaluation only, but later we may add some features to make 
 **[Overview](#overview)**<br>
 **[Prerequsites](#prerequisites)**<br>
 **[Setup NAPP vAPP in vCenter](#setup-napp-vapp-in-vcenter)**<br>
-**[- Install vAPP with CSI Driver](#install-vapp-with-csi-driver)**<br>
+**[- Install vAPP with CSI Provisioner](#install-vapp-with-csi-provisioner)**<br>
 **[- Install vAPP with NFS Provisioner](#install-vapp-with-nfs-provisioner)**<br>
 **[- Start vAPP](#start-vapp)**<br>
 **[ - Watch the Setup Process](#watch-the-setup-process)**<br>
@@ -52,15 +52,25 @@ vSphere DRS must be enabled in the Cluster where you want to deply NAPP even if 
 
 ## Setup NAPP vAPP in vCenter 
 
+!!!IMPORTANT!!! NAPP needs inside Kubernetes a volume that support volume expansion. This feature allows to easily resize an existing volume by editing the PersistentVolumeClaim (PVC) object.
+There are some volumes available that supports volume expansion but unfortunately not the Local Storage. So, I decided to make two Version. One with the CSI Provisioner and another one with NFS Provisioner. 
+
+CSI Provisioner !!!RECOMENDED!!!
+The CSI Provisioner (high level) use the Storage that is attached to your vCenter and creates on demand virtual disk for Kubernetes. This is highly recommended (also in the NAPP Installation Documentation), but you need a user with the rights in vCenter to create virtual Disks.
+
+NFS Provisioner
+If you are not able to access the vCenter with the needed permissions, a workaround is to use the NFS Provisioner. In this case the NFS Server is running on the first Kubernetes Node and all request to the Storage will be handled by the Kubernetes Node in addition to all the other Workloads. This impact the performance and the stability and should be only used for testing in small environments.
+
+After you decided which Version to use, you can downlad the vAPP OVA.
+
 Download vAPP OVA from [releases](https://github.com/derstich/napp_vapp/releases/) 
 
-### Install vAPP with CSI driver
+### Install vAPP with CSI Provisioner
 
-dfsfafas
-afssf
-afsfsd
+Before we can install the vAPP we need to Create a Storage Policy and tag the Storage in vCenter that should be used for the NAPP vAPP.
 
-### Install vAPP with NFS provisioner
+
+### Install vAPP with NFS Provisioner
 
 Like with all other vAPPS you need to select the Template, Folder, Compute Resource, Storage and the belonging Network. 
 Customize Template is the important part. Change the settings to your environment. Please check the picture above if you need to understand which IP is used where.
