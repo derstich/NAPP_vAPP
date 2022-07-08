@@ -112,6 +112,24 @@ You should see now all Stoarge Devices that you have tagged before
 
 Finish the creation and go forward to install the NAPP vAPP
 
+Like with all other vAPPS you need to select the Template, Folder, Compute Resource, Storage and the belonging Network. 
+Customize Template is the important part. Change the settings to your environment. Please check the picture above if you need to understand which IP is used where.
+
+![alt text](https://github.com/derstich/napp_vapp/blob/main/images/custom_1.png.png?raw=true)
+
+Next we define the Password for the NAPP Appliance, a DNS Entry from the IP Addres Range defined for the Load Balancer VIPs and the Information how to reach the NSX Manager. 
+In Addition you can decide if <ou would like to install only one Worker Node (Evaluation) or 3 Worker Nodes (Advanced) and if you would like to download all container images upfront or not. We recognized some issues if the internet connection is not performant enough and in this case you should preload the images. Lcal Cache is for testing porpuses and should not be used.
+
+![alt text](https://github.com/derstich/napp_vapp/blob/main/images/custom_2.png?raw=true)
+
+In the last Step we will define the CSI Driver Settings. You need to define the vCenter IP, and the Datacenter where you install the NAPP vAPP. Unfortunattely (as of now) the Datacenter Name must be without blanks. Otherwise the script will fail.
+The easiest way is to use the vCenter Admininstrator, but you can also create a special user with only rights to modify storage.
+The Storage Policy Name must match the name you used above while you create the Policy.
+
+![alt text](https://github.com/derstich/napp_vapp/blob/main/images/custom_3.png?raw=true)
+
+now you can jump to **[- Start vAPP](#start-vapp)**<br>
+
 ### Install vAPP with NFS Provisioner
 
 Like with all other vAPPS you need to select the Template, Folder, Compute Resource, Storage and the belonging Network. 
