@@ -52,7 +52,8 @@ vSphere DRS must be enabled in the Cluster where you want to deply NAPP even if 
 
 ## Setup NAPP vAPP in vCenter 
 
-!!!IMPORTANT!!! NAPP needs inside Kubernetes a volume that support volume expansion. This feature allows to easily resize an existing volume by editing the PersistentVolumeClaim (PVC) object.
+## !!!IMPORTANT!!! 
+NAPP needs inside Kubernetes a volume that support volume expansion. This feature allows to easily resize an existing volume by editing the PersistentVolumeClaim (PVC) object.
 There are some volumes available that supports volume expansion but unfortunately not the Local Storage. So, I decided to make two Version. One with the CSI Provisioner and another one with NFS Provisioner. 
 
 CSI Provisioner !!!RECOMENDED!!!
@@ -64,11 +65,52 @@ If you are not able to access the vCenter with the needed permissions, a workaro
 After you decided which Version to use, you can downlad the vAPP OVA.
 
 Download vAPP OVA from [releases](https://github.com/derstich/napp_vapp/releases/) 
+If you would like to install only one Worker Node you only need to download the vAPP.ova. If you would like to install 3 Worker Nodes you need to download in addition also the node_app.ova.
 
 ### Install vAPP with CSI Provisioner
 
-Before we can install the vAPP we need to Create a Storage Policy and tag the Storage in vCenter that should be used for the NAPP vAPP.
+Before we can install the vAPP we need to create a Storage Policy and tag the Storage in vCenter that should be used for the NAPP vAPP. Optional you can also create a new User in vCenter with only rights to manage the Storage (e.g. Storage Admin). The right settings for the Storage Admin can be found here -> https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-0AB6E692-AA47-4B6A-8CEA-38B754E16567.html
 
+Login to vCenter and go to "Tags & Custom Attributes"
+
+![alt text](https://github.com/derstich/napp_vapp/blob/main/images/csi_1.png?raw=true)
+
+Create a new Category and select only Datastore
+
+![alt text](https://github.com/derstich/napp_vapp/blob/main/images/csi_2.png?raw=true)
+
+And now create a TAG and mapp the Tag to the new created category
+
+![alt text](https://github.com/derstich/napp_vapp/blob/main/images/csi_3.png?raw=true)
+
+Next we will apply the Tag to all volumes that can be used. Can be either one or many.
+
+![alt text](https://github.com/derstich/napp_vapp/blob/main/images/csi_4.png?raw=true)
+
+
+![alt text](https://github.com/derstich/napp_vapp/blob/main/images/csi_5.png?raw=true)
+
+In the last Step we will create the Storage Policy under "Policies and Profiles"
+
+![alt text](https://github.com/derstich/napp_vapp/blob/main/images/csi_6.png?raw=true)
+
+Insert a Name. This will be used later in our OVA Template to map the CSI Driver to the right storage
+
+![alt text](https://github.com/derstich/napp_vapp/blob/main/images/csi_7.png?raw=true)
+
+We will use the Tags that are created before, so we use "Enable tag based placement rules".
+
+![alt text](https://github.com/derstich/napp_vapp/blob/main/images/csi_8.png?raw=true)
+
+We need to specify the Category and the Tag
+
+![alt text](https://github.com/derstich/napp_vapp/blob/main/images/csi_9.png?raw=true)
+
+You should see now all Stoarge Devices that you have tagged before
+
+![alt text](https://github.com/derstich/napp_vapp/blob/main/images/csi_10.png?raw=true)
+
+Finish the creation and go forward to install the NAPP vAPP
 
 ### Install vAPP with NFS Provisioner
 
