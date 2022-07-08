@@ -9,7 +9,8 @@ This release is for evaluation only, but later we may add some features to make 
 **[Overview](#overview)**<br>
 **[Prerequsites](#prerequisites)**<br>
 **[Setup NAPP vAPP in vCenter](#setup-napp-vapp-in-vcenter)**<br>
-**[- Install vAPP](#install-vapp)**<br>
+**[- Install vAPP with CSI Driver](#install-vapp)**<br>
+**[- Install vAPP with NFS Provisioner](#install-vapp)**<br>
 **[- Start vAPP](#start-vapp)**<br>
 **[ - Watch the Setup Process](#watch-the-setup-process)**<br>
 **[Setup NAPP APP in vCLoud Director aka OneCloud](#setup-napp-app-in-vcloud-director-aka-onecloud)**<br>
